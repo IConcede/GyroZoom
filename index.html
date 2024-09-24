@@ -25,12 +25,16 @@
             }
         };
 
+        const MAX_ZOOM_LEVEL = 2
+        const MIN_ZOOM_LEVEL = 0.5
+        const ZOOM_STEP = 0.1
+
         const viewer = OpenSeadragon({
             id: "seadragon-viewer",
             prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
-            tileSources: duomo
+            tileSources: duomo,
         });
-        window.onload = () => document.getElementById('output').innerHTML = 'PLEASE'
+
         function handleOrientationEvent(event) {
 
             const { alpha, beta, gamma } = event
@@ -41,10 +45,11 @@
 
             const rotationDegrees = spinRadians * 180 / Math.PI;
 
-            if (rotationDegrees > 10 && rotationDegrees < 120) {
-                viewer.viewport.zoomBy(1.1)
-            } else if (rotationDegrees < -10 && rotationDegrees > -120) {
-                viewer.viewport.zoomBy(0.9)
+            zoomLevel = viewer.viewport.getZoom()
+            if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < 10) {
+                viewer.viewport.zoomBy(1 + ZOOM_STEP)
+            } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > -10) {
+                viewer.viewport.zoomBy(1 - ZOOM_STEP)
             }
 
             document.getElementById('output').innerHTML = rotationDegrees
