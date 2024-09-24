@@ -65,7 +65,7 @@
         } else {
             window.addEventListener("MozOrientation", handleOrientationEvent, true)
             window.addEventListener("deviceorientation", handleOrientationEvent, true)
-            window.addEventListener("orientationchange", handleOrientationEvent, true)
+            window.addEventListener("orientationchange", () => document.getElementById('output').innerHTML = 'zoomLevel')
         }
     </script>
     <div>
