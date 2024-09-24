@@ -61,7 +61,7 @@
                         if (permissionState === 'granted') {
                             window.addEventListener('deviceorientation', handleOrientationEvent, true);
                         }
-                    })
+                    }).catch(console.error)
         } else {
             window.addEventListener("MozOrientation", handleOrientationEvent, true)
             window.addEventListener("deviceorientation", handleOrientationEvent, true)
@@ -69,6 +69,7 @@
     </script>
     <div>
         <p id="output"></p>
+        <p>APPLE</p>
     </div>
 
 
