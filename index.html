@@ -48,7 +48,7 @@
             zoomLevel = viewer.viewport.getZoom()
             if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < 10) {
                 viewer.viewport.zoomBy(1 + ZOOM_STEP)
-            } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > -10) {
+            } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > 0.1) {
                 viewer.viewport.zoomBy(1 - ZOOM_STEP)
             }
 
