@@ -25,15 +25,15 @@
             }
         };
 
-        const MAX_ZOOM_LEVEL = 2
-        const MIN_ZOOM_LEVEL = 0.5
-        const ZOOM_STEP = 0.1
-
         const viewer = OpenSeadragon({
             id: "seadragon-viewer",
             prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
             tileSources: duomo,
         });
+
+        const MAX_ZOOM_LEVEL = 10   
+        const MIN_ZOOM_LEVEL = 0.1
+        const ZOOM_STEP = 0.1
 
         function handleOrientationEvent(event) {
 
@@ -46,17 +46,26 @@
             const rotationDegrees = spinRadians * 180 / Math.PI;
 
             zoomLevel = viewer.viewport.getZoom()
-            if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < 10) {
+            if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < MAX_ZOOM_LEVEL) {
                 viewer.viewport.zoomBy(1 + ZOOM_STEP)
-            } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > 0.1) {
+            } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > MIN_ZOOM_LEVEL) {
                 viewer.viewport.zoomBy(1 - ZOOM_STEP)
             }
 
             document.getElementById('output').innerHTML = zoomLevel
         }
 
-        window.addEventListener("MozOrientation", handleOrientationEvent, true)
-        window.addEventListener("deviceorientation", handleOrientationEvent, true)
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientationEvent, true);
+                        }
+                    })
+        } else {
+            window.addEventListener("MozOrientation", handleOrientationEvent, true)
+            window.addEventListener("deviceorientation", handleOrientationEvent, true)
+        }
     </script>
     <div>
         <p id="output"></p>
