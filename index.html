@@ -55,22 +55,14 @@
             document.getElementById('output').innerHTML = zoomLevel
         }
 
-        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            window.addEventListener('deviceorientation', handleOrientationEvent, true);
-                        }
-                    }).catch(console.error)
-        } else {
-            window.addEventListener("MozOrientation", handleOrientationEvent, true)
-            window.addEventListener("deviceorientation", handleOrientationEvent, true)
-            document.addEventListener("orientationchange", () => document.getElementById('output').innerHTML = 'zoomLevel')
-        }
+        
+        window.addEventListener("MozOrientation", handleOrientationEvent, true)
+        window.addEventListener("deviceorientation", handleOrientationEvent, true)
+        document.addEventListener("DeviceOrientationEvent", () => document.getElementById('output').innerHTML = 'zoomLevel')
     </script>
     <div>
         <p id="output"></p>
-        <p>APPLE</p>
+        <p id="apple">APPLE</p>
     </div>
 
 
