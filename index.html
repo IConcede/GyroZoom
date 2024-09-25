@@ -61,9 +61,9 @@
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
 
         if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
-            DeviceOrientationEvent.requestPermission().then(response => {
+            DeviceOrientationEvent.requestPermission().then(response =>
                 document.getElementById('output').innerHTML = response
-            })
+            ).catach(err => document.getElementById('output').innerHTML = err)
         }
     </script>
     <div>
