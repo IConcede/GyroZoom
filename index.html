@@ -58,7 +58,25 @@
         
         window.addEventListener("MozOrientation", handleOrientationEvent, true)
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
-        document.addEventListener("onorientationchange", () => document.getElementById('output').innerHTML = 'zoomLevel')
+        
+        requestButton.addEventListener('click', function() {
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOS 13+ requires permission
+                DeviceOrientationEvent.requestPermission()
+                .then(response => {
+                    if (response === 'granted') {
+                        // Permission granted, now attach the event listener
+                        window.addEventListener('deviceorientation', handleOrientation);
+                    } else {
+                        outputDiv.innerHTML = 'Permission denied for device orientation.';
+                    }
+                })
+                .catch(console.error);
+            } else {
+                // Fallback for older versions or non-iOS WebKit browsers
+                window.addEventListener('deviceorientation', handleOrientation);
+            }
+        });
     </script>
     <div>
         <p id="output"></p>
