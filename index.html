@@ -33,7 +33,7 @@
 
         const MAX_ZOOM_LEVEL = 10   
         const MIN_ZOOM_LEVEL = 0.1
-        const ZOOM_STEP = 0.1
+        const ZOOM_STEP = 0.05
 
         function handleOrientationEvent(event) {
             document.getElementById('output').innerHTML = "pineAPPLE"
@@ -61,24 +61,13 @@
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
 
         function onClick() {
-            document.getElementById('output').innerHTML = "pineAPPLE"
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            window.addEventListener('deviceorientation', () => document.getElementById('output').innerHTML = "pineAPPLE");
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                // handle regular non iOS 13+ devices
             }
         }
     </script>
-    <div id="ah">
-        <p id="output"></p>
-        <p id="apple">APPLE</p>
-        <button onclick="onClick()">Click Me!</button>
+    <div>
+        <button style="height:200px;width:200px" onclick="onClick()">Enable Gyrozoom for Safari</button>
     </div>
 
 
