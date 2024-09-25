@@ -60,11 +60,77 @@
         window.addEventListener("MozOrientation", handleOrientationEvent, true)
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
 
-        if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
-            DeviceOrientationEvent.requestPermission().then(response =>
-                document.getElementById('output').innerHTML = response
-            ).catach(err => document.getElementById('output').innerHTML = err)
-        }
+        function requestDevicePermissions() {
+                if (typeof DeviceOrientationEvent.requestPermission === 'function' && typeof DeviceMotionEvent.requestPermission === 'function') {
+
+                    const requestOrientationPermission = () => {
+                        DeviceOrientationEvent.requestPermission().then(permissionState => {
+                            if (permissionState === 'granted') {
+                                window.addEventListener('deviceorientation', function (event) {
+                                    _processGyroscopeData(event.alpha, event.beta, event.gamma, event.absolute);
+                                });
+                            } else {
+                                const button = document.createElement('button');
+                                button.innerText = "Enable Orientation";
+                                button.style.position = 'absolute';
+                                button.style.top = '100%';
+                                button.style.left = '100%';
+                                button.style.transform = 'translate(50%, 50%)';
+                                document.body.appendChild(button);
+
+                                button.addEventListener('click', () => {
+                                    requestOrientationPermission();
+                                    document.body.removeChild(button); // Remove button after requesting permissions
+                                });
+                            }
+                        }).catch(err => {
+                            console.error("Error requesting deviceorientation permission:", err);
+                        });
+                    };
+
+                    const requestOrientationAbsolutePermission = () => {
+                        DeviceOrientationEvent.requestPermission(true).then(permissionState => {
+                            if (permissionState === 'granted') {
+                                document.getElementById('output').innerHTML = "pineAPPLE"
+                                // window.addEventListener('deviceorientationabsolute', function(event) {
+                                //      _processGyroscopeData(event.alpha, event.beta, event.gamma, event.absolute);
+                                // });
+                            } else {
+                                console.log("deviceorientationabsolute permission denied.");
+                            }
+                        }).catch(err => {
+                            console.error("Error requesting deviceorientationabsolute permission:", err);
+                        });
+                    };
+
+                    requestOrientationPermission();
+                    const button = document.createElement('button');
+                    button.innerText = "Enable Orientation";
+                    button.style.position = 'absolute';
+                    button.style.top = '100%';
+                    button.style.left = '100%';
+                    button.style.transform = 'translate(50%, 50%)';
+                    document.body.appendChild(button);
+
+                    button.addEventListener('click', () => {
+                        requestOrientationPermission();
+                        document.body.removeChild(button); // Remove button after requesting permissions
+                    });
+                } 
+                // else {
+                //     // Automatically start listeners on non-iOS 13+ devices
+                //     window.addEventListener('deviceorientation', function (event) {
+                //         _processGyroscopeData(event.alpha, event.beta, event.gamma);
+                //         console.log("DeviceOrientationEvent listener added automatically.");
+                //     });
+                //     window.addEventListener('devicemotion', function (event) {
+                //         _processAccelerometerData(event.acceleration.x, event.acceleration.y, event.acceleration.z);
+                //         console.log("DeviceMotionEvent listener added automatically.");
+                //     });
+                // }
+            }
+
+            requestDevicePermissions()
     </script>
     <div>
         <p id="output"></p>
