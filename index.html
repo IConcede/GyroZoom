@@ -63,11 +63,19 @@
         function onClick() {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientationEvent);
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // handle regular non iOS 13+ devices
             }
         }
     </script>
     <div>
-        <button style="height:200px;width:200px" onclick="onClick()">Enable Gyrozoom for Safari</button>
+        <button onclick="onClick()">Enable Gyrozoom for Safari</button>
     </div>
 
 
