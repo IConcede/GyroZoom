@@ -61,13 +61,9 @@
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
 
         if (DeviceOrientationEvent && typeof (DeviceOrientationEvent.requestPermission) === "function") {
-            const permissionState = await DeviceOrientationEvent.requestPermission();
-
-            if (permissionState === "granted") {
-                document.getElementById('output').innerHTML = "APPLEpine"   
-            } else {
-                 document.getElementById('output').innerHTML = "APPLE pie"
-            }
+            DeviceOrientationEvent.requestPermission().then(response => {
+                document.getElementById('output').innerHTML = response
+            })
         }
     </script>
     <div>
