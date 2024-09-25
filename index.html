@@ -65,7 +65,7 @@
                 DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
                         if (permissionState === 'granted') {
-                            window.addEventListener('deviceorientation', handleOrientationEvent);
+                            window.addEventListener('deviceorientation', () => document.getElementById('output').innerHTML = "pineAPPLE");
                         }
                     })
                     .catch(console.error);
