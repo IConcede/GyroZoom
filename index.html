@@ -48,6 +48,12 @@
             zoomLevel = viewer.viewport.getZoom()
             document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
             document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1)
+
+            const [portraitZoomInMinDegrees, portraitZoomInMaxDegrees] = [10, 120]
+            const [portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees] = [-10, -120]
+            const [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees] = [-80, 0]
+            const [landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees] = [-100, -180]
+
             if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < MAX_ZOOM_LEVEL) {
                 viewer.viewport.zoomBy(1 + ZOOM_STEP)
             } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > MIN_ZOOM_LEVEL) {
