@@ -47,6 +47,7 @@
             const rotationDegrees = alpha;
 
             zoomLevel = viewer.viewport.getZoom()
+            document.getElementById('output').innerHTML = alpha
             if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < MAX_ZOOM_LEVEL) {
                 viewer.viewport.zoomBy(1 + ZOOM_STEP)
             } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > MIN_ZOOM_LEVEL) {
@@ -65,7 +66,8 @@
         }
     </script>
     <div id="ah">
-        <button onclick="requestSafariPermission()">Click Me!</button>
+        <p style="font-size:2em" id="output"></p>
+        <button style="margin-top:100px;width:800px;height:150px;font-size:3em" onclick="requestSafariPermission()">Enable GyroZoom for Safari</button>
     </div>
 
 
