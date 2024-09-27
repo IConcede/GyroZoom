@@ -41,10 +41,10 @@
 
             const betaRadians = beta / 180 * Math.PI;
             const gammaRadians = gamma / 180 * Math.PI;
-            // const spinRadians = Math.atan2(Math.cos(betaRadians) * Math.sin(gammaRadians), Math.sin(betaRadians));
-            const spinRadians = Math.atan2(Math.cos(gammaRadians) * Math.sin(betaRadians), Math.sin(gammaRadians));
+            const spinRadians = Math.atan2(Math.cos(betaRadians) * Math.sin(gammaRadians), Math.sin(betaRadians));
 
-            const rotationDegrees = spinRadians * 180 / Math.PI;
+            // const rotationDegrees = spinRadians * 180 / Math.PI;
+            const rotationDegrees = alpha;
 
             zoomLevel = viewer.viewport.getZoom()
             if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < MAX_ZOOM_LEVEL) {
