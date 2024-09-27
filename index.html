@@ -33,7 +33,7 @@
 
         const MAX_ZOOM_LEVEL = 10   
         const MIN_ZOOM_LEVEL = 0.1
-        const ZOOM_STEP = 0.1
+        const ZOOM_STEP = 0.05
 
         function handleOrientationEvent(event) {
             const { alpha, beta, gamma } = event
@@ -56,14 +56,14 @@
         window.addEventListener("MozOrientation", handleOrientationEvent, true)
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
 
-        function onClick() {
+        function requestSafariPermission() {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
             }
         }
     </script>
     <div id="ah">
-        <button onclick="onClick()">Click Me!</button>
+        <button onclick="requestSafariPermission()">Click Me!</button>
     </div>
 
 
