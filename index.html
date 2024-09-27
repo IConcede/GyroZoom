@@ -29,10 +29,11 @@
             id: "seadragon-viewer",
             prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
             tileSources: duomo,
+            visibilityRatio: 0.5,
         });
 
-        const MAX_ZOOM_LEVEL = 25
-        const MIN_ZOOM_LEVEL = 0.1
+        const MAX_ZOOM_LEVEL = 25   
+        const MIN_ZOOM_LEVEL = 0.5
         const ZOOM_STEP = 0.05
 
         function handleOrientationEvent(event) {
@@ -40,7 +41,8 @@
 
             const betaRadians = beta / 180 * Math.PI;
             const gammaRadians = gamma / 180 * Math.PI;
-            const spinRadians = Math.atan2(Math.cos(betaRadians) * Math.sin(gammaRadians), Math.sin(betaRadians));
+            // const spinRadians = Math.atan2(Math.cos(betaRadians) * Math.sin(gammaRadians), Math.sin(betaRadians));
+            const spinRadians = Math.atan2(Math.cos(gammaRadians) * Math.sin(betaRadians), Math.sin(gammaRadians));
 
             const rotationDegrees = spinRadians * 180 / Math.PI;
 
