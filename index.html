@@ -54,9 +54,15 @@
             const [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees] = [-80, 0]
             const [landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees] = [-100, -180]
 
-            if (rotationDegrees > 10 && rotationDegrees < 120 && zoomLevel < MAX_ZOOM_LEVEL) {
+            let zoomInMin, zoomInMax, zoomOutMin, zoomOutMax
+            if (window.innerHeight > window.innerWidth)
+                [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees]
+            else
+                [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
+
+            if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < MAX_ZOOM_LEVEL) {
                 viewer.viewport.zoomBy(1 + ZOOM_STEP)
-            } else if (rotationDegrees < -10 && rotationDegrees > -120 && zoomLevel > MIN_ZOOM_LEVEL) {
+            } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > MIN_ZOOM_LEVEL) {
                 viewer.viewport.zoomBy(1 - ZOOM_STEP)
             }
         }
