@@ -61,7 +61,6 @@
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
 
         function onClick() {
-            document.getElementById('output').innerHTML = "pineAPPLE"
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
