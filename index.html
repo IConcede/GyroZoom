@@ -46,7 +46,6 @@
             const rotationDegrees = spinRadians * 180 / Math.PI
 
             zoomLevel = viewer.viewport.getZoom()
-            document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
             
 
             const [portraitZoomInMinDegrees, portraitZoomInMaxDegrees] = [10, 120]
@@ -58,8 +57,9 @@
                                                                     ? [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees]
                                                                     : [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
 
-                                                                    
-            document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1) + '   zoomOut: ' + (zoomOutMax - (zoomInMin - zoomInMax) / 4).toFixed(1)
+            
+            document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1) + 'p            zoomIn: ' + (zoomInMin + (zoomInMax - zoomInMin) / 5).toFixed(1)
+            document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1) + 'p            zoomOut: ' + (zoomOutMax - (zoomInMin - zoomInMax) / 4).toFixed(1)
             if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < MAX_ZOOM_LEVEL) {
                 if (rotationDegrees < zoomInMin + (zoomInMax - zoomInMin) / 5) {
                     viewer.viewport.zoomBy(1 + ZOOM_STEP)
@@ -67,7 +67,7 @@
                     viewer.viewport.zoomBy(1 + 3 * ZOOM_STEP)
                 }
             } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > MIN_ZOOM_LEVEL) {
-                if (rotationDegrees > zoomOutMax - (zoomInMin - zoomInMax) / 4) {
+                if (rotationDegrees > zoomOutMax - (zoomInMin - zoomInMax) / 5) {
                     viewer.viewport.zoomBy(1 - ZOOM_STEP)
                 } else {
                     viewer.viewport.zoomBy(1 - 3 * ZOOM_STEP)
