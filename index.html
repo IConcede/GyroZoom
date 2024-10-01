@@ -47,7 +47,7 @@
             const rotationDegrees = spinRadians * 180 / Math.PI
 
             zoomLevel = viewer.viewport.getZoom()
-            document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1) + ' zoom Level ' + zoomLevel.toFixed(1)
+            document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
             document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1)
 
             const [portraitZoomInMinDegrees, portraitZoomInMaxDegrees] = [10, 120]
@@ -67,12 +67,7 @@
                     viewer.viewport.zoomBy(1 + 3 * ZOOM_STEP)
                 }
             } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > MIN_ZOOM_LEVEL) {
-                if (rotationDegrees > zoomInMin - ACCELERATE_THRESHOLD_DEGREES) {
-                    viewer.viewport.zoomBy(1 - ZOOM_STEP)
-                } else {
-                    viewer.viewport.zoomBy(1 - 3 * ZOOM_STEP)
-                }
-                
+                viewer.viewport.zoomBy(1 - ZOOM_STEP)
             }
         }
 
