@@ -67,7 +67,11 @@
                     viewer.viewport.zoomBy(1 + 3 * ZOOM_STEP)
                 }
             } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > MIN_ZOOM_LEVEL) {
-                viewer.viewport.zoomBy(1 - ZOOM_STEP)
+                if (rotationDegrees > zoomOutMin - ACCELERATE_THRESHOLD_DEGREES) {
+                    viewer.viewport.zoomBy(1 - ZOOM_STEP)
+                } else {
+                    viewer.viewport.zoomBy(1 - 3 * ZOOM_STEP)
+                }
             }
         }
 
