@@ -59,9 +59,18 @@
                                                                     : [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
 
             if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < MAX_ZOOM_LEVEL) {
-                viewer.viewport.zoomBy(1 + ZOOM_STEP)
+                if (rotationDegrees < zoomInMin + (zoomInMax - zoomInMin) / 2) {
+                    viewer.viewport.zoomBy(1 + ZOOM_STEP)
+                } else {
+                    viewer.viewport.zoomBy(1 + 2 * ZOOM_STEP)
+                }
             } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > MIN_ZOOM_LEVEL) {
-                viewer.viewport.zoomBy(1 - ZOOM_STEP)
+                if (rotationDegrees > zoomOutMax - (zoomInMax - zoomInMin) / 2) {
+                    viewer.viewport.zoomBy(1 - ZOOM_STEP)
+                } else {
+                    viewer.viewport.zoomBy(1 - 2 * ZOOM_STEP)
+                }
+                
             }
         }
 
