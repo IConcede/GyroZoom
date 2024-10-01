@@ -34,7 +34,7 @@
 
         const MAX_ZOOM_LEVEL = 100
         const MIN_ZOOM_LEVEL = 0.01
-        const ZOOM_STEP = 0.01
+        const ZOOM_STEP = 0.1
         const ACCELERATE_THRESHOLD_DEGREES = 20
 
         function handleOrientationEvent(event) {
@@ -47,7 +47,7 @@
             const rotationDegrees = spinRadians * 180 / Math.PI
 
             zoomLevel = viewer.viewport.getZoom()
-            document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
+            document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1) + ' zoom Level' + zoomLevel
             document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1)
 
             const [portraitZoomInMinDegrees, portraitZoomInMaxDegrees] = [10, 120]
