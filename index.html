@@ -32,9 +32,9 @@
             visibilityRatio: 0.5,
         });
 
-        const MAX_ZOOM_LEVEL = 25   
+        const MAX_ZOOM_LEVEL = 30
         const MIN_ZOOM_LEVEL = 0.5
-        const ZOOM_STEP = 0.05
+        const ZOOM_STEP = 0.01
 
         function handleOrientationEvent(event) {
             const { alpha, beta, gamma } = event
@@ -54,11 +54,9 @@
             const [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees] = [-80, 0]
             const [landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees] = [-100, -180]
 
-            let zoomInMin, zoomInMax, zoomOutMin, zoomOutMax
-            if (window.innerHeight > window.innerWidth)
-                [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees]
-            else
-                [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
+            const [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = window.innerHeight > window.innerWidth 
+                                                                    ? [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees]
+                                                                    : [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
 
             if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < MAX_ZOOM_LEVEL) {
                 viewer.viewport.zoomBy(1 + ZOOM_STEP)
@@ -67,7 +65,7 @@
             }
         }
 
-        
+
         window.addEventListener("MozOrientation", handleOrientationEvent, true)
         window.addEventListener("deviceorientation", handleOrientationEvent, true)
 
@@ -80,7 +78,8 @@
     <div id="ah">
         <p style="font-size:2em" id="output1"></p>
         <p style="font-size:2em" id="output2"></p>
-        <button style="margin-top:100px;width:800px;height:150px;font-size:3em" onclick="requestSafariPermission()">Enable GyroZoom for Safari</button>
+        <button style="margin-top:100px;width:800px;height:150px;font-size:3em"
+            onclick="requestSafariPermission()">Enable GyroZoom for Safari</button>
     </div>
 
 
