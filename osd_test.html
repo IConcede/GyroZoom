@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Basic OpenSeadragon example</title>
+</head>
+
+<body translate="no">
+    <div id="seadragon-viewer" style="width:800px; height:600px;"></div>
+    <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script id="rendered-js" async>
+        const duomo = {
+            Image: {
+                xmlns: "http://schemas.microsoft.com/deepzoom/2008",
+                Url: "https://openseadragon.github.io/example-images/duomo/duomo_files/",
+                Format: "jpg",
+                Overlap: "2",
+                TileSize: "256",
+                Size: {
+                    Width: "13920",
+                    Height: "10200"
+                }
+            }
+        };
+
+        const viewer = OpenSeadragon({
+            id: "seadragon-viewer",
+            prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
+            tileSources: duomo,
+            visibilityRatio: 0.5,
+        });
+
+        const MAX_ZOOM_LEVEL = 100
+        const MIN_ZOOM_LEVEL = 0.1
+        const ZOOM_STEP = 0.01
+        const ACCELERATE_THRESHOLD_DEGREES = 20
+        const ACCELERATION_SPEED_FACTOR = 3
+
+        // TODO detect orientation by Alpha
+        const isAlpha = false
+
+        const [portraitZoomInMinDegrees, portraitZoomInMaxDegrees] = isAlpha ? [] : [10, 120]
+        const [portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees] = isAlpha ? [] : [-10, -120]
+        const [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees] = isAlpha ? [] : [-80, 0]
+        const [landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees] = isAlpha ? [] : [-100, -180]
+
+        function handleOrientationEvent(event) {
+            const { alpha, beta, gamma } = event
+
+            const betaRadians = beta / 180 * Math.PI;
+            const gammaRadians = gamma / 180 * Math.PI;
+            const spinRadians = Math.atan2(Math.cos(betaRadians) * Math.sin(gammaRadians), Math.sin(betaRadians));
+
+            const rotationDegrees = spinRadians * 180 / Math.PI
+
+            const zoomLevel = viewer.viewport.getZoom()
+
+            document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
+            document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1)
+
+            const [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = window.innerHeight > window.innerWidth 
+                                                                    ? [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees]
+                                                                    : [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
+
+    
+            if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < MAX_ZOOM_LEVEL) {
+                if (rotationDegrees < zoomInMin + ACCELERATE_THRESHOLD_DEGREES) {
+                    viewer.viewport.zoomBy(1 + ZOOM_STEP)
+                } else {
+                    viewer.viewport.zoomBy(1 + ZOOM_STEP * ACCELERATION_SPEED_FACTOR)
+                }
+            } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > MIN_ZOOM_LEVEL) {
+                if (rotationDegrees > zoomOutMin - ACCELERATE_THRESHOLD_DEGREES) {
+                    viewer.viewport.zoomBy(1 - ZOOM_STEP)
+                } else {
+                    viewer.viewport.zoomBy(1 - ZOOM_STEP * ACCELERATION_SPEED_FACTOR)
+                }
+            }
+        }
+
+        window.addEventListener("MozOrientation", handleOrientationEvent, true)
+        window.addEventListener("deviceorientation", handleOrientationEvent, true)
+
+        function requestSafariPermission() {
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+            }
+        }
+    </script>
+    <div id="ah">
+        <p style="font-size:2em" id="output1"></p>
+        <p style="font-size:2em" id="output2"></p>
+        <button style="margin-top:100px;width:800px;height:150px;font-size:3em"
+            onclick="requestSafariPermission()">Enable GyroZoom for Safari</button>
+    </div>
+
+
+</body>
+
+</html>
