@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>GyroZoom Demo</title>
+</head>
+
+<body translate="no">
+  <div id="seadragon-viewer" style="width:800px; height:600px;"></div>
+  <script src="https://openseadragon.github.io/openseadragon/openseadragon.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src="gyroZoom.js"></script>
+  <script id="rendered-js">
+
+    var duomo = {
+      Image: {
+        xmlns: "http://schemas.microsoft.com/deepzoom/2008",
+        Url: "https://openseadragon.github.io/example-images/duomo/duomo_files/",
+        Format: "jpg",
+        Overlap: "2",
+        TileSize: "256",
+        Size: {
+          Width: "13920",
+          Height: "10200"
+        }
+      }
+    };
+
+    var viewer = OpenSeadragon({
+      id: "seadragon-viewer",
+      prefixUrl: "https://openseadragon.github.io/openseadragon/images/",
+      tileSources: duomo
+    });
+
+    viewer.enableGyroZoom();
+  </script>
+  <p>Tilt Your Mobile Device To Zoom In And Out</p>
+  <button style="margin-top:100px;width:800px;height:150px;font-size:3em"
+  onclick="viewer.requestSafariPermission()">Enable GyroZoom for Safari</button>
+</body>
+</html>
