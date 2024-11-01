@@ -49,9 +49,8 @@
         // Tablet spin value is -90 when upright
         if (isTablet()) {
             const degreeParameters = [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees, landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
-            for (let a in degreeParameters) {
-                a[0] = a[0] - 90
-                a[1] = a[1] - 90
+            for (let i in degreeParameters) {
+                i = i - 90
             }
         }
 
@@ -69,6 +68,7 @@
             document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
             document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1)
             document.getElementById('output3').innerHTML = 'isMobile: ' + isTablet()
+            document.getElementById('output4').innerHTML = 'portraitZoomInMinDegrees: ' + portraitZoomInMinDegrees
 
             const [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = window.innerHeight > window.innerWidth 
                                                                     ? [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees]
@@ -109,6 +109,7 @@
         <p style="font-size:2em" id="output1"></p>
         <p style="font-size:2em" id="output2"></p>
         <p style="font-size:2em" id="output3"></p>
+        <p style="font-size:2em" id="output4"></p>
         <button style="margin-top:100px;width:800px;height:150px;font-size:3em"
             onclick="requestSafariPermission()">Enable GyroZoom for Safari</button>
     </div>
