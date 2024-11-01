@@ -68,7 +68,7 @@
 
             document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
             document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1)
-            document.getElementById('output3').innerHTML = 'isMobile: ' + mobileCheck()
+            document.getElementById('output3').innerHTML = 'isMobile: ' + isTablet()
 
             const [zoomInMin, zoomInMax, zoomOutMin, zoomOutMax] = window.innerHeight > window.innerWidth 
                                                                     ? [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees]
