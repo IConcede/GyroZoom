@@ -38,21 +38,12 @@
         const ACCELERATE_THRESHOLD_DEGREES = 20
         const ACCELERATION_SPEED_FACTOR = 3
 
-        // TODO detect orientation by Alpha
-        const isAlpha = false
+        const isTablet = isTablet()
 
-        const [portraitZoomInMinDegrees, portraitZoomInMaxDegrees] = isAlpha ? [] : [10, 120]
-        const [portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees] = isAlpha ? [] : [-10, -120]
-        const [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees] = isAlpha ? [] : [-80, 0]
-        const [landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees] = isAlpha ? [] : [-100, -180]
-
-        // Tablet spin value is -90 when upright
-        if (isTablet()) {
-            const degreeParameters = [portraitZoomInMinDegrees, portraitZoomInMaxDegrees, portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees, landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees, landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees]
-            for (let i in degreeParameters) {
-                i = i - 90
-            }
-        }
+        const [portraitZoomInMinDegrees, portraitZoomInMaxDegrees] = isTablet ? [-80, 30] : [10, 120]
+        const [portraitZoomOutMinDegrees, portraitZoomOutMaxDegrees] = isTablet ? [-100, -210] : [-10, -120]
+        const [landscapeZoomInMinDegrees, landscapeZoomInMaxDegrees] = isTablet ? [-170, -90] : [-80, 0]
+        const [landscapeZoomOutMinDegrees, landscapeZoomOutMaxDegrees] = isTablet ? [-190, -270] : [-100, -180]
 
         function handleOrientationEvent(event) {
             const { alpha, beta, gamma } = event
