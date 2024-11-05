@@ -48,7 +48,7 @@
       Object.assign(allZoomAngleSettings, options.zoomAngleSettings);
 
       const zoomAngleSettings = checkDeviceIsTablet() ? allZoomAngleSettings.tablet : allZoomAngleSettings.mobile
-      const {zoomInMin, zoomInMax, zoomOutMin, zoomOutMax} = (window.innerHeight > window.innerWidth) && landscapeModeEnabled
+      const { zoomInMin, zoomInMax, zoomOutMin, zoomOutMax } = (window.innerHeight > window.innerWidth) && landscapeModeEnabled
                                                                   ? zoomAngleSettings.portrait
                                                                   : zoomAngleSettings.landscape
   
