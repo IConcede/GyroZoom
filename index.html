@@ -71,7 +71,7 @@
             }
 
         const allZoomAngleSettings = structuredClone(defaultZoomAngleSettings);
-        const zoomAngleSettings = checkDeviceIsMobile() ? allZoomAngleSettings.mobile : allZoomAngleSettings.tablet
+        const zoomAngleSettings = mobileCheck() ? allZoomAngleSettings.mobile : allZoomAngleSettings.tablet
         const { zoomInMin, zoomInMax, zoomOutMin, zoomOutMax } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
                                                                     ? zoomAngleSettings.landscape
                                                                     : zoomAngleSettings.portrait
