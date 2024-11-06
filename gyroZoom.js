@@ -48,9 +48,6 @@
       Object.assign(allZoomAngleSettings, options.zoomAngleSettings);
 
       const zoomAngleSettings = mobileCheck() ? allZoomAngleSettings.mobile : allZoomAngleSettings.tablet
-      const { zoomInMin, zoomInMax, zoomOutMin, zoomOutMax } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
-                                                                  ? zoomAngleSettings.landscape
-                                                                  : zoomAngleSettings.portrait
   
       function handleOrientationEvent(event) {
         const { alpha, beta, gamma } = event
@@ -62,6 +59,10 @@
         const rotationDegrees = spinRadians * 180 / Math.PI
   
         const zoomLevel = viewer.viewport.getZoom()
+
+        const { zoomInMin, zoomInMax, zoomOutMin, zoomOutMax } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
+                                                                  ? zoomAngleSettings.landscape
+                                                                  : zoomAngleSettings.portrait
 
         if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < maxZoomLevel) {
           if (rotationDegrees < zoomInMin + zoomSpeedBoostAngle) {
