@@ -42,38 +42,22 @@
         const defaultZoomAngleSettings = {
         tablet: {
             portrait: {
-                zoomInMin: -80,
-                zoomInMax: 30,
-                zoomOutMin: -100,
-                zoomOutMax: -210,
+                zoomIn: -80,
+                zoomOut: -100,
             },
             landscape: {
-                zoomInMin: -170,
-                zoomInMax: -90,
-                zoomOutMin: -190,
-                zoomOutMax: -270,
+                zoomIn: -170,
+                zoomOut: -190,
             }
           },
         mobile: {
             portrait: {
-                zoomInMin: 10,
-                zoomInMax: 120,
-                zoomOutMin: -10,
-                zoomOutMax: -120,
+                zoomIn: 10,
+                zoomOut: -10,
             },
             landscape: {
-                left: {
-                    zoomInMin: -80,
-                    zoomInMax: 0,
-                    zoomOutMin: -100,
-                    zoomOutMax: -180,
-                },
-                right: {
-                    zoomInMin: 100,
-                    zoomInMax: 0,
-                    zoomOutMin: -100,
-                    zoomOutMax: -180,
-                },
+                zoomIn: -80,
+                zoomOut: -100,
             }
           }
         }
@@ -93,22 +77,22 @@
   
         const zoomLevel = viewer.viewport.getZoom()
 
-        const { zoomInMin, zoomOutMin } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
+        const { zoomIn, zoomOut } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
                                                                   ? zoomAngleSettings.landscape
                                                                   : zoomAngleSettings.portrait
 
         document.getElementById('output1').innerHTML = 'alpha: ' + alpha.toFixed(1)
         document.getElementById('output2').innerHTML = 'spin: ' + rotationDegrees.toFixed(1)
         document.getElementById('output3').innerHTML = 'isMobilea: ' + mobileCheck()
-        document.getElementById('output4').innerHTML = 'portraitZoomInMinDegrees: ' + zoomInMin
+        document.getElementById('output4').innerHTML = 'portraitZoomInMinDegrees: ' + zoomIn
 
-        if (rotationDegrees > zoomInMin && zoomLevel < maxZoomLevel) {
+        if (rotationDegrees > zoomIn && zoomLevel < maxZoomLevel) {
           if (rotationDegrees < zoomInMin + zoomSpeedBoostAngle) {
             viewer.viewport.zoomBy(1 + zoomStep)
           } else {
             viewer.viewport.zoomBy(1 + zoomStep * speedBoostFactor)
           }
-        } else if (rotationDegrees < zoomOutMin && zoomLevel > minZoomLevel) {
+        } else if (rotationDegrees < zoomOut && zoomLevel > minZoomLevel) {
           if (rotationDegrees > zoomOutMin - zoomSpeedBoostAngle) {
             viewer.viewport.zoomBy(1 - zoomStep)
           } else {
