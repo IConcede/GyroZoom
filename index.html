@@ -62,10 +62,18 @@
                 zoomOutMax: -120,
             },
             landscape: {
-                zoomInMin: -80,
-                zoomInMax: 0,
-                zoomOutMin: -100,
-                zoomOutMax: -180,
+                left: {
+                    zoomInMin: -80,
+                    zoomInMax: 0,
+                    zoomOutMin: -100,
+                    zoomOutMax: -180,
+                },
+                right: {
+                    zoomInMin: 100,
+                    zoomInMax: 0,
+                    zoomOutMin: -100,
+                    zoomOutMax: -180,
+                },
             }
           }
         }
@@ -85,7 +93,7 @@
   
         const zoomLevel = viewer.viewport.getZoom()
 
-        const { zoomInMin, zoomInMax, zoomOutMin, zoomOutMax } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
+        const { zoomInMin, zoomOutMin } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
                                                                   ? zoomAngleSettings.landscape
                                                                   : zoomAngleSettings.portrait
 
@@ -94,13 +102,13 @@
         document.getElementById('output3').innerHTML = 'isMobilea: ' + mobileCheck()
         document.getElementById('output4').innerHTML = 'portraitZoomInMinDegrees: ' + zoomInMin
 
-        if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < maxZoomLevel) {
+        if (rotationDegrees > zoomInMin && zoomLevel < maxZoomLevel) {
           if (rotationDegrees < zoomInMin + zoomSpeedBoostAngle) {
             viewer.viewport.zoomBy(1 + zoomStep)
           } else {
             viewer.viewport.zoomBy(1 + zoomStep * speedBoostFactor)
           }
-        } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > minZoomLevel) {
+        } else if (rotationDegrees < zoomOutMin && zoomLevel > minZoomLevel) {
           if (rotationDegrees > zoomOutMin - zoomSpeedBoostAngle) {
             viewer.viewport.zoomBy(1 - zoomStep)
           } else {
