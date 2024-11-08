@@ -93,7 +93,7 @@
             viewer.viewport.zoomBy(1 + zoomStep * speedBoostFactor)
           }
         } else if (rotationDegrees < zoomOut && zoomLevel > minZoomLevel) {
-          if (rotationDegrees > zoomOutMin - zoomSpeedBoostAngle) {
+          if (rotationDegrees > zoomOut - zoomSpeedBoostAngle) {
             viewer.viewport.zoomBy(1 - zoomStep)
           } else {
             viewer.viewport.zoomBy(1 - zoomStep * speedBoostFactor)
