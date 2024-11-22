@@ -35,7 +35,8 @@ This plugin adds gyroscope-based zoom functionality to OpenSeaDragon viewers. It
     ```
 
 2. Enable the gyroscope zoom:
-   Initialize with default settings:
+
+    Initialize with default settings:
    ```javascript
    viewer.enableGyroZoom();
    ```
