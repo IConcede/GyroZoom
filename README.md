@@ -79,6 +79,7 @@ Safari requires user interaction to enable gyroscope access. Call `requestSafari
 
 ```javascript
 viewer.requestSafariPermission();
+```
 
 ## Compatibility
 
