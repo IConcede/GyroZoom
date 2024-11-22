@@ -1,4 +1,5 @@
-Demo at https://candid-clafoutis-f914ff.netlify.app/
+# Demo
+Check out the live demo of the GyroZoom plugin on the following website: [GyroZoom Demo](https://candid-clafoutis-f914ff.netlify.app/)
 
 # OpenSeaDragon Gyroscope Zoom Plugin
 
