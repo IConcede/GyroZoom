@@ -16,30 +16,22 @@
       const defaultZoomAngleSettings = {
         tablet: {
             portrait: {
-                zoomInMin: -80,
-                zoomInMax: 30,
-                zoomOutMin: -100,
-                zoomOutMax: -210,
+                zoomIn: -80,
+                zoomOut: -100,
             },
             landscape: {
-                zoomInMin: -170,
-                zoomInMax: -90,
-                zoomOutMin: -190,
-                zoomOutMax: -270,
+                zoomIn: -170,
+                zoomOut: -190,
             }
           },
         mobile: {
             portrait: {
-                zoomInMin: 10,
-                zoomInMax: 120,
-                zoomOutMin: -10,
-                zoomOutMax: -120,
+                zoomIn: 10,
+                zoomOut: -10,
             },
             landscape: {
-                zoomInMin: -80,
-                zoomInMax: 0,
-                zoomOutMin: -100,
-                zoomOutMax: -180,
+                zoomIn: -80,
+                zoomOut: -100,
             }
           }
         }
@@ -60,18 +52,18 @@
   
         const zoomLevel = viewer.viewport.getZoom()
 
-        const { zoomInMin, zoomInMax, zoomOutMin, zoomOutMax } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
+        const { zoomIn, zoomOut } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
                                                                   ? zoomAngleSettings.landscape
                                                                   : zoomAngleSettings.portrait
 
-        if (rotationDegrees > zoomInMin && rotationDegrees < zoomInMax && zoomLevel < maxZoomLevel) {
-          if (rotationDegrees < zoomInMin + zoomSpeedBoostAngle) {
+        if (rotationDegrees > zoomIn && zoomLevel < maxZoomLevel) {
+          if (rotationDegrees < zoomIn + zoomSpeedBoostAngle) {
             viewer.viewport.zoomBy(1 + zoomStep)
           } else {
             viewer.viewport.zoomBy(1 + zoomStep * speedBoostFactor)
           }
-        } else if (rotationDegrees < zoomOutMin && rotationDegrees > zoomOutMax && zoomLevel > minZoomLevel) {
-          if (rotationDegrees > zoomOutMin - zoomSpeedBoostAngle) {
+        } else if (rotationDegrees < zoomOut && zoomLevel > minZoomLevel) {
+          if (rotationDegrees > zoomOut - zoomSpeedBoostAngle) {
             viewer.viewport.zoomBy(1 - zoomStep)
           } else {
             viewer.viewport.zoomBy(1 - zoomStep * speedBoostFactor)
