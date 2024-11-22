@@ -23,18 +23,24 @@
                 zoomIn: -170,
                 zoomOut: -190,
             }
-          },
+        },
         mobile: {
             portrait: {
                 zoomIn: 10,
                 zoomOut: -10,
             },
             landscape: {
-                zoomIn: -80,
-                zoomOut: -100,
+                left: {
+                    zoomIn: -80,
+                    zoomOut: -100,
+                },
+                right: {
+                    zoomIn: 100,
+                    zoomOut: 80,
+                }
             }
-          }
         }
+    }
 
       const allZoomAngleSettings = structuredClone(defaultZoomAngleSettings);
       Object.assign(allZoomAngleSettings, options.zoomAngleSettings);
@@ -53,7 +59,7 @@
         const zoomLevel = viewer.viewport.getZoom()
 
         const { zoomIn, zoomOut } = (window.innerHeight < window.innerWidth) && landscapeModeEnabled
-                                                                  ? zoomAngleSettings.landscape
+                                                                  ? (rotationDegrees > 25 ? zoomAngleSettings.landscape.right : zoomAngleSettings.landscape.left)
                                                                   : zoomAngleSettings.portrait
 
         if (rotationDegrees > zoomIn && zoomLevel < maxZoomLevel) {
