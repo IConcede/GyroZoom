@@ -71,7 +71,7 @@ This plugin adds gyroscope-based zoom functionality to OpenSeaDragon viewers. It
 | `zoomStep`             | `number`  | `0.01`  | The zoom increment per gyroscope event.                       |
 | `zoomSpeedBoostAngle`  | `number`  | `20`    | Angle threshold for applying speed boost.                     |
 | `speedBoostFactor`     | `number`  | `3`     | Multiplier for the zoom step when speed boost is active.      |
-| `landscapeModeEnabled` | `boolean` | `true`  | Enables different settings for landscape mode.                |
+| `landscapeModeEnabled` | `boolean` | `true`  | Enables gyroscope-zooming with landscape mode.                |
 | `zoomAngleSettings`    | `object`  | See code example | Customizable gyroscope angle settings for zoom controls. |
 
 ## Safari Permissions
@@ -89,7 +89,7 @@ A simple implementation could include a button:
 
 ## Compatibility
 
-- **Designed for:** Mobile and tablet devices with gyroscopes.
+- **Designed for:** Mobile and tablet devices with gyroscopes. Tablet compatibility is limited due to device hardware and gyroscope precision differences.
 - **Browser Support:** Major browsers that support device orientation events.
 
 ## License
