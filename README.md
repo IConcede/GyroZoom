@@ -35,10 +35,12 @@ This plugin adds gyroscope-based zoom functionality to OpenSeaDragon viewers. It
     ```
 
 2. Enable the gyroscope zoom:
+   Initialize with default settings:
    ```javascript
    viewer.enableGyroZoom();
    ```
 
+    Or initialize with custom settings:
     ```javascript
     viewer.enableGyroZoom({
       maxZoomLevel: 50, // Maximum zoom level
@@ -57,12 +59,6 @@ This plugin adds gyroscope-based zoom functionality to OpenSeaDragon viewers. It
         },
       },
     });
-    ```
-
-4. On Safari, request gyroscope permission:
-
-    ```javascript
-    viewer.requestSafariPermission();
     ```
 
 ## Configuration Options
