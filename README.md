@@ -79,3 +79,12 @@ Safari requires user interaction to enable gyroscope access. Call `requestSafari
 
 ```javascript
 viewer.requestSafariPermission();
+
+## Compatibility
+
+- **Designed for:** Mobile and tablet devices with gyroscopes.
+- **Browser Support:** Major browsers that support device orientation events.
+
+## License
+
+This plugin is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
